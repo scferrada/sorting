@@ -1,0 +1,175 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[spanish]{babel}
+%\usepackage[ansinew]{inputenc}
+\usepackage[utf8]{inputenc}
+% \usepackage[latin1]{inputenc}
+\usepackage[letterpaper,includeheadfoot, top=0.5cm, bottom=3.0cm, right=2.0cm, left=2.0cm]{geometry}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{url}
+%\usepackage{pdfpages}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{subfig}
+
+\usepackage{listings} %Codigo
+\lstset{language=C, tabsize=4,framexleftmargin=5mm,breaklines=true}
+
+\begin{document}
+%\begin{sf}
+% --------------- ---------PORTADA --------------------------------------------
+\newpage
+\pagestyle{fancy}
+\fancyhf{}
+%-------------------- CABECERA ---------------------
+\fancyhead[L]{ \includegraphics[scale=0.9]{img/dcc.png} }
+%------------------ TÍTULO -----------------------
+\vspace*{6cm}
+\begin{center}
+\Huge  {Tarea 1}\\
+\vspace{1cm}
+\huge {Ordenamiento}\\
+\vspace{1cm}
+%\small {Título pe} \\
+\end{center}
+%----------------- NOMBRES ------------------------
+\vfill
+\begin{flushright}
+\begin{tabular}{ll}
+Autores: & Claudio Berroeta\\
+& Sebastián Ferrada \\
+Profesor: & Pablo Barceló\\
+Auxiliar: & Miguel Romero\\
+Ayudantes: & Javiera Born\\
+& Giselle Font\\
+& \today\\
+& Santiago, Chile.
+\end{tabular}
+\end{flushright}
+
+% ·············· ENCABEZADO - PIE DE PAGINA ············
+\newpage
+\pagestyle{fancy}
+\fancyhf{}
+
+%Encabezado
+%\fancyhead[L]{\rightmark}
+\fancyhead[L]{\small \rm \textit{Sección \rightmark}} %Izquierda
+\fancyhead[R]{\small \rm \textbf{\thepage}} %Derecha
+
+
+\fancyfoot[L]{\small \rm \textit{Pie de página - Izquierda}} %Izquierda
+\fancyfoot[R]{\small \rm \textit{Pie de página - Derecha}} %Derecha
+%\fancyfoot[C]{\thepage} %Centro
+
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+% =============== INDICE ===============
+
+\tableofcontents
+\listoffigures
+
+% =============== SECCION ===============
+\newpage
+\section{Introducción}
+
+% ----- Texto Introducción------
+Blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah.
+% ----------------------------------
+
+\newpage
+\section{Algoritmos}
+
+% ----- Texto Introductorio sobre los algoritmos------
+Blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah.
+% -----------------------------------------------------------
+
+
+\subsection{Bubble Sort}
+
+% -----Explicación de cómo funciona Bubble Sort-------
+Blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah.
+% -------------------------------------------------------------
+
+\subsection{Insertion Sort}
+
+% -----Explicación de cómo funciona Insertion Sort------
+Blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah.
+% ---------------------------------------------------------------
+
+\subsection{Merge Sort}
+
+% -----Explicación de cómo funciona Merge Sort-------
+Blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah.
+% -------------------------------------------------------------
+
+\subsection{Quick Sort}
+
+% -----Explicación de cómo funciona Quick Sort--------
+Blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah.
+% -------------------------------------------------------------
+
+\newpage
+\section{Experimentos}
+such experiment
+
+\newpage
+\section{Resultados}
+very successful
+
+\newpage
+\section{Conclusión}
+wow
+
+
+
+
+% ============= ANEXOS =====================
+\newpage
+\section{Anexos}
+
+\subsection{Algoritmos}
+\subsubsection{Bubble Sort}
+\subsubsection{Insertion Sort}
+\subsubsection{Merge Sort}
+\subsubsection{Quick Sort}
+
+\subsection{Experimentos}
+\subsubsection{Experimento 1}
+\subsubsection{Experimento 2}
+\subsubsection{Experimento 3}
+\subsubsection{Experimento 4}
+
+\subsection{Resultados}
+\subsubsection{Resultado 1}
+\subsubsection{Resultado 2}
+\subsubsection{Resultado 3}
+\subsubsection{Resultado 4}
+
+
+
+
+% ============= FIN DE DOCUMENTO ==============
+\end{document}
+
+% % ················ IMAGEN ·················
+% \begin{figure}[ht!]
+% \centering
+% \fbox{\includegraphics[scale=0.6]{img/torneo.png}}
+% \caption{Torneo}\label{torneo}
+% \end{figure}
+% %··········································
+
+% % ················ IMAGEN DOBLE ·················
+% \begin{figure}[ht!] \centering
+% \subfloat[Hola]{\includegraphics[scale=0.44]{img/holaquetal.png}}
+% \subfloat[Que tal]{\includegraphics[scale=0.45]{img/holaquetal1.png}}
+% \caption{Holaquetal}\label{holaquetal}
+% \end{figure}
+% %··········································
