@@ -11,9 +11,9 @@ import java.util.Random;
  * Time: 12:11 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PermutationGenerator extends Sort {
+public class ArrayGenerator extends Sort {
 
-    static public int[] generateRandom(int N){
+    static public int[] makeRandom(int N){
         int[] A = new int[N];
         for(int i=0; i<N; i++){
             A[i] = i;
@@ -24,7 +24,7 @@ public class PermutationGenerator extends Sort {
         return A;
     }
 
-    static public int[] generateSorted(int N){
+    static public int[] makeSorted(int N){
         int[] A = new int[N];
         for(int i=0; i<N; i++){
             A[i] = i;
@@ -32,7 +32,7 @@ public class PermutationGenerator extends Sort {
         return A;
     }
 
-    static public int[] generateAlmostSorted(int N){
+    static public int[] makeAlmostSorted(int N){
         int[] A = new int[N];
         for(int i=0; i<N; i++){
             A[i] = i;
