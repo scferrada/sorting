@@ -1,12 +1,5 @@
 package sort;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Sebastián
- * Date: 16-04-14
- * Time: 03:25 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Bubblesort extends Sort{
 
     static public int[] sort(int[] A){
@@ -22,5 +15,4 @@ public class Bubblesort extends Sort{
         }
         return A;
     }
-
 }
