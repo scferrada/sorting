@@ -11,20 +11,17 @@ import java.util.Random;
  * Time: 12:11 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ArrayGenerator extends Sort {
+public class PermutationGenerator extends Sort {
 
-    static public int[] makeRandom(int N){
-        int[] A = new int[N];
-        for(int i=0; i<N; i++){
-            A[i] = i;
-        }
+    static public int[] generateRandom(int N){
+        int[] A = generateSorted(N);
         for(int i=0; i<N; i++){
             swap(A, i, i + new Random().nextInt(N-i));
         }
         return A;
     }
 
-    static public int[] makeSorted(int N){
+    static public int[] generateSorted(int N){
         int[] A = new int[N];
         for(int i=0; i<N; i++){
             A[i] = i;
@@ -32,11 +29,8 @@ public class ArrayGenerator extends Sort {
         return A;
     }
 
-    static public int[] makeAlmostSorted(int N){
-        int[] A = new int[N];
-        for(int i=0; i<N; i++){
-            A[i] = i;
-        }
+    static public int[] generateAlmostSorted(int N){
+        int[] A = generateSorted(N);
         int top = (int) Math.ceil(Math.log(N));
         int inversions = new Random().nextInt(top);
         for(int i=0; i<inversions; i++){
