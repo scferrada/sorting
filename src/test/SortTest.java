@@ -17,10 +17,11 @@ import static junit.framework.Assert.assertEquals;
  * To change this template use File | Settings | File Templates.
  */
 public class SortTest {
+    int N = 1024;
     static int[] A = {3, 4, 5, 6, 2, 1};
     int[] E = {1, 2, 3, 4, 5, 6};
 
-    @Test
+   // @Test
     public void MergeTest(){
         int[] R = Mergesort.sort(A);
 //        for(int i=0; i<6; i++){
@@ -42,7 +43,7 @@ public class SortTest {
         }
     }
 
-    @Test
+   // @Test
     public void InsertTest(){
         int[] R = Insertsort.sort(A);
         for(int i=0; i<6; i++){
@@ -50,7 +51,7 @@ public class SortTest {
         }
     }
 
-    @Test
+   // @Test
     public void BubbleTest(){
         int[] R = Bubblesort.sort(A);
         for(int i=0; i<6; i++){
