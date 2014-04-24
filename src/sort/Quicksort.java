@@ -12,18 +12,21 @@ public class Quicksort extends Sort{
         if(end-start<=1) return A;
         int mid = partition(A,start, end);
         quicksort(A, start, mid);
-        quicksort(A, mid, end);
+        quicksort(A, mid+1, end);
         return A;
     }
 
     private static int partition(int[] A, int start, int end) {
-        int pivot = A[start+new Random().nextInt(end-start)];
-        int i = start-1, j = end+1;
-        for(;;){
-            do{j--;}while (A[j]>pivot);
-            do{i++;}while (A[i]<pivot);
-            if(i<j) swap(A, i, j);
-            else return j;
+        int index = start + new Random().nextInt(end-start);
+        //System.out.println(start+", "+index+", "+end);
+        int pivot = A[index];
+        int i = start, j = end;
+        while(i<j){
+            while(A[i] < pivot) i++;
+            while(A[j] > pivot) j--;
+            swap(A, i, j);
+            //i++; j--;
         }
+        return i;
     }
 }
