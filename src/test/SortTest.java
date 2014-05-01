@@ -25,7 +25,7 @@ public class SortTest {
 
     @Before
     public void setup(){
-        N = 10000000;
+        N = 10000;
         A = ArrayGenerator.random(N);
         E = ArrayGenerator.sorted(N);
     }
@@ -33,7 +33,7 @@ public class SortTest {
    @Test
     public void BubbleTest(){
         int[] R = Bubblesort.sort(A);
-        for(int i=0; i<6; i++){
+        for(int i=0; i<N; i++){
             assertEquals(E[i], R[i]);
         }
     }
@@ -41,7 +41,7 @@ public class SortTest {
     @Test
     public void MergeTest(){
         int[] R = Mergesort.sort(A);
-        for(int i=0; i<6; i++){
+        for(int i=0; i<N; i++){
             assertEquals(E[i], R[i]);
         }
     }
@@ -49,15 +49,16 @@ public class SortTest {
     @Test
     public void QuickTest(){
         int[] R = Quicksort.sort(A);
-        for(int i=0; i<6; i++){
-            assertEquals(E[i], R[i]);
-        }
+        for(int i=0; i<N; i++){
+            System.out.println(E[i]+"  "+R[i]);
+            assertEquals(E[i], R[i]);}
+
     }
 
     @Test
     public void InsertTest(){
         int[] R = Insertsort.sort(A);
-        for(int i=0; i<6; i++){
+        for(int i=0; i<N; i++){
             assertEquals(E[i], R[i]);
         }
     }

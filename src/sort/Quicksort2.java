@@ -2,7 +2,8 @@ package sort;
 
 import java.util.Random;
 
-public class Quicksort extends Sort{
+public class Quicksort2 extends Sort {
+    static public int comp = 0;
 
     static public int[] sort(int[] A){
         return quicksort(A, 0, A.length-1);
@@ -22,8 +23,14 @@ public class Quicksort extends Sort{
         int pivot = A[index];
         int i = start, j = end;
         while(i<j){
-            while(A[i] < pivot) i++;
-            while(A[j] > pivot) j--;
+            while(A[i] < pivot){
+                i++;
+                comp++;
+            }
+            while(A[j] > pivot){
+                j--;
+                comp++;
+            }
             swap(A, i, j);
             //i++; j--;
         }
