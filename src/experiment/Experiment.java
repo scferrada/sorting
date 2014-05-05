@@ -8,11 +8,11 @@ import java.util.Arrays;
 public class Experiment {
 
     static public void main(String[] args){
-        int N = 5;
+        int N = 1000;
         long aux;
 
-
-        for(int pow=18; pow<21; pow++){
+        /*para evitar errores */
+        for(int pow=8; pow<21; pow++){
             System.out.println();
             long[] mTime = new long[N], qTime = new long[N],
                     iTime = new long[N], bTime = new long[N];
@@ -28,7 +28,8 @@ public class Experiment {
             Fraction error = new Fraction(5,100);
 
             for(int i=0; i<N+3; i++){
-                int[] A = ArrayGenerator.almostSorted((int) Math.pow(2, pow));
+                int[] A = ArrayGenerator.random((int) Math.pow(2, pow));
+                /* int[] A = ArrayGenerator.almostSorted((int) Math.pow(2, pow));  */
 
 
                 /*Prueba de tiempo Quicksort*/
