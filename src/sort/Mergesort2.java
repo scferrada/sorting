@@ -3,7 +3,8 @@ package sort;
 import java.util.Arrays;
 
 public class Mergesort2 extends Sort {
-    static public int comp = 0;
+    static public long comp = 0;
+    static public long comp1 = 0;
     static public int[] sort(int[] A) {
 
         if(A.length == 1) return A;
@@ -22,8 +23,10 @@ public class Mergesort2 extends Sort {
 
         for(int k=0; k<n; k++){
            if(i<A.length && j<B.length){
+               comp++;
+               /*comp1++;
+                   if(comp1>1000) {comp++; comp1=0;}*/
                if(A[i]<=B[j]){
-                   comp++;
                    res[k] = A[i];
                    i++;
                }else{

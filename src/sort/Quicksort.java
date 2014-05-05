@@ -18,14 +18,13 @@ public class Quicksort extends Sort{
 
     private static int partition(int[] A, int start, int end) {
         int index = start + new Random().nextInt(end-start);
-        //System.out.println(start+", "+index+", "+end);
         int pivot = A[index];
         int i = start, j = end;
+
         while(i<j){
             while(A[i] < pivot) i++;
             while(A[j] > pivot) j--;
             swap(A, i, j);
-            //i++; j--;
         }
         return i;
     }

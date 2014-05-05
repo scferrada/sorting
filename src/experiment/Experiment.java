@@ -1,189 +1,249 @@
 package experiment;
 
 import sort.*;
+import type.lib.Fraction;
 
 import java.util.Arrays;
 
 public class Experiment {
 
     static public void main(String[] args){
-        int N = 10000;
-        long[] mTime = new long[N], qTime = new long[N],
-               iTime = new long[N], bTime = new long[N];
-        int[] mComp = new int[N], qComp = new int[N],
-                iComp = new int[N], bComp = new int[N];
-        long start, end, time;
-        double mstd1 = 1, qstd1 = 1, istd1 = 1, bstd1 = 1;
-        double mstd2 = 1, qstd2 = 1, istd2 = 1, bstd2 = 1;
-        int a1 = 0, a2= 0, a3= 0,a4 = 0, a5 = 0, a6 = 0, a7 = 0, a8 = 0;
+        int N = 5;
+        long aux;
 
 
+        for(int pow=18; pow<21; pow++){
+            System.out.println();
+            long[] mTime = new long[N], qTime = new long[N],
+                    iTime = new long[N], bTime = new long[N];
+            long[] mComp = new long[N], qComp = new long[N],
+                    iComp = new long[N], bComp = new long[N];
+            long start, end, time;
 
-        for(int pow=11; pow<12; pow++){
-            for(int i=0; i<N; i++){
-                int[] A = ArrayGenerator.random((int) Math.pow(2, pow));
-                //Quicksort
-                if(qstd1>0.05){
-                     start = System.nanoTime();
-                     Quicksort.sort(Arrays.copyOf(A,A.length));
-                     end = System.nanoTime();
-                     time = end - start;
-                     qTime[i] = time;
-                     if(i>3) qstd1 = standardDeviation(qTime,i)/mean(qTime,i);
+            Fraction mstd1 = new Fraction(1,1), qstd1 = new Fraction(1,1), istd1 = new Fraction(1,1), bstd1 = new Fraction(1,1);
+            Fraction mstd2 = new Fraction(1,1), qstd2 = new Fraction(1,1), istd2 = new Fraction(1,1), bstd2 = new Fraction(1,1);
+
+            int a1 = 0, a2= 0, a3= 0,a4 = 0, a5 = 0, a6 = 0, a7 = 0, a8 = 0;
+
+            Fraction error = new Fraction(5,100);
+
+            for(int i=0; i<N+3; i++){
+                int[] A = ArrayGenerator.almostSorted((int) Math.pow(2, pow));
+
+
+                /*Prueba de tiempo Quicksort*/
+                if(error.compareTo(qstd1) == -1){
+
+                    start = System.nanoTime();
+                    Quicksort.sort(Arrays.copyOf(A,A.length));
+                    end = System.nanoTime();
+                    time = end - start;
+                    if(i>2) qTime[i-3] = time;
+
+                    if(i>5){
+                        long prom = mean(qTime,i-3);
+                        qstd1 = new Fraction(standardDeviation(qTime,i-3,prom),prom);
+                    }
                 }
                 else{
                     if(a1==0){
                         a1++;
-                        System.out.println("Prueba tiempo Quicksort. N="+N+", i="+i+", error ="+qstd1 );
+                        aux = mean(qTime,i-4);
+                        System.out.println("Prueba tiempo Quicksort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", i="+(i-3)+", error = "+(new Fraction(standardDeviation(qTime,i-4,aux),aux)).toString()+" time= "+ aux );
                     }
                     }
-                //Quicksort2
-                if(qstd2>0.05){
+
+
+                /*Prueba de Comparaciones Quicksort*/
+                if(error.compareTo(qstd2) == -1){
                     Quicksort2.sort(Arrays.copyOf(A,A.length));
-                    qComp[i] = Quicksort2.comp;
+                    if(i>2) qComp[i-3] = Quicksort2.comp;
                     Quicksort2.comp = 0;
-                    if(i>3) qstd2 = standardDeviation(qComp,i)/mean(qComp,i);
-                } else {
+
+                    if(i>5) {
+                        long prom = mean(qComp,i-3);
+                        qstd2 = new Fraction(standardDeviation(qComp,i-3,prom),prom);}
+                    }
+                 else {
                     if(a2==0){
                         a2++;
-                        System.out.println("Prueba comparaciones Quicksort. N="+N+", i="+i+", error ="+qstd2+" comp="+ mean(qComp,i-1));}
+                        aux = mean(qComp,i-4);
+                        System.out.println("Prueba comparaciones Quicksort. n°elementos =" + Math.pow(2, pow)+ "  N="+N+", i="+(i-3)+", error = "+(new Fraction(standardDeviation(qComp,i-4,aux),aux)).toString()+" comp= "+ aux);}
                 }
 
-                //Mergesort
-                if(mstd1>0.05){
+
+
+                /*Prueba de tiempo Mergesort*/
+                if(error.compareTo(mstd1) == -1){
                     start = System.nanoTime();
                     Mergesort.sort(Arrays.copyOf(A,A.length));
                     end = System.nanoTime();
                     time = end - start;
-                    mTime[i] = time;
-                    if(i>3) mstd1 = standardDeviation(mTime,i)/mean(mTime,i);
+                    if(i>2)mTime[i-3] = time;
+
+                    if(i>5){
+                        long prom = mean(mTime,i-3);
+                        mstd1 = new Fraction(standardDeviation(mTime,i-3,prom),prom);
+                    }
                 }
                 else{
                     if(a3==0){
                         a3++;
-                        System.out.println("Prueba tiempo Mergesort. N="+N+", i="+i+", error ="+mstd1); }
+                        aux = mean(mTime,i-4);
+                        System.out.println("Prueba tiempo Mergesort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", i="+(i-3)+", error = "+(new Fraction(standardDeviation(mTime,i-4,aux),aux)).toString()+" time= "+ aux); }
                 }
-                //Mergesort2
-                if(mstd2>0.05){
+
+                /*Prueba de comparaciones Mergesort*/
+                if(error.compareTo(mstd2) == -1){
                     Mergesort2.sort(Arrays.copyOf(A,A.length));
-                    mComp[i] = Mergesort2.comp;
+                    if(i>2)mComp[i-3] = Mergesort2.comp;
                     Mergesort2.comp = 0;
-                    if(i>3) mstd2 = standardDeviation(mComp,i)/mean(mComp,i);
+
+                    if(i>5){
+                        long prom = mean(mComp,i-3);
+                        mstd2 = new Fraction(standardDeviation(mComp,i-3,prom),prom);
+                    }
                 } else {
                     if(a4==0){
                         a4++;
-                        System.out.println("Prueba comparaciones Mergesort. N="+N+", i="+i+", error ="+mstd2+" comp="+ mean(mComp,i-1));  }
+                        aux = mean(mComp,i-4);
+                        System.out.println("Prueba comparaciones Mergesort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", i="+(i-3)+", error = "+(new Fraction(standardDeviation(mComp,i-4,aux),aux)).toString()+" comp= "+ aux);  }
                 }
 
-
-
-                if(istd1>0.05){
+                /*Prueba de tiempo InsertSort*/
+                if(error.compareTo(istd1) == -1){
                     start = System.nanoTime();
                     Insertsort.sort(Arrays.copyOf(A,A.length));
                     end = System.nanoTime();
                     time = end - start;
-                    iTime[i] = time;
-                    if(i>3) istd1 = standardDeviation(iTime,i)/mean(iTime,i);
+                    if(i>2)iTime[i-3] = time;
+
+                    if(i>5){
+                        long prom = mean(iTime,i-3);
+                        istd1 = new Fraction(standardDeviation(iTime,i-3,prom),prom);
+                    }
                 }
                 else{
                     if(a5==0){
                         a5++;
-                        System.out.println("Prueba tiempo Insertsort. N="+N+", i="+i+", error ="+istd1);             }
+                        aux = mean(iTime,i-4);
+                        System.out.println("Prueba tiempo Insertsort. n°elementos =" + Math.pow(2, pow)+ "  N="+N+", i="+(i-3)+", error = "+(new Fraction(standardDeviation(iTime,i-4,aux),aux)).toString()+" time= "+ aux);             }
                 }
-                //Insertsort2
-                if(istd2>0.05){
+
+                /*Prueba de Comparaciones InsertSort*/
+                if(error.compareTo(istd2) == -1){
                     Insertsort2.sort(Arrays.copyOf(A,A.length));
-                    iComp[i] = Insertsort2.comp;
+                    if(i>2)iComp[i-3] = Insertsort2.comp;
                     Insertsort2.comp = 0;
-                    if(i>3) istd2 = standardDeviation(iComp,i)/mean(iComp,i);
+
+                    if(i>5){
+                        long prom = mean(iComp,i-3);
+                        istd2 = new Fraction(standardDeviation(iComp,i-3,prom),prom);
+                    }
                 } else {
                     if(a6==0){
                         a6++;
-                        System.out.println("Prueba comparaciones Insertsort. N="+N+", i="+i+", error ="+istd2+" comp="+ mean(iComp,i-1));       }
+                        aux = mean(iComp,i-4);
+                        System.out.println("Prueba comparaciones Insertsort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", i="+(i-3)+", error = "+(new Fraction(standardDeviation(iComp,i-4,aux),aux)).toString()+" comp= "+ aux);       }
                 }
 
-                //Mergesort
-                if(bstd1>0.05){
-                    start = System.nanoTime();
+
+
+                /*Prueba de tiempo Bubblesort*/
+                if(error.compareTo(bstd1) == -1){
+                    start = System.currentTimeMillis();
                     Bubblesort.sort(Arrays.copyOf(A,A.length));
-                    end = System.nanoTime();
+                    end = System.currentTimeMillis();
                     time = end - start;
-                    bTime[i] = time;
-                    if(i>3) bstd1 = standardDeviation(bTime,i)/mean(bTime,i);
+                    if(i>2)bTime[i-3] = time;
+
+                    if(i>5) {
+                        long prom = mean(bTime,i-3);
+                        bstd1 = new Fraction(standardDeviation(bTime,i-3,prom),prom);
+                    }
                 }
                 else{
                     if(a7==0){
                         a7++;
-                        System.out.println("Prueba tiempo Bubblesort. N="+N+", i="+i+", error ="+bstd1);               }
+                        aux = mean(bTime,i-4);
+                        System.out.println("Prueba tiempo Bubblesort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", i="+(i-3)+", error = "+(new Fraction(standardDeviation(bTime,i-4,aux),aux)).toString()+" time= "+ aux);               }
                 }
-                //Mergesort2
-                if(bstd2>0.05){
+
+
+                /*Prueba de comparaciones Bubblesort*/
+                if(error.compareTo(bstd2) == -1){
                     Bubblesort2.sort(Arrays.copyOf(A,A.length));
-                    bComp[i] = Bubblesort2.comp;
+                    if(i>2) bComp[i-3] = Bubblesort2.comp;
                     Bubblesort2.comp = 0;
-                    if(i>3) bstd2 = standardDeviation(bComp,i)/mean(bComp,i);
+
+                    if(i>5){
+                        long prom = mean(bComp,i-3);
+                        bstd2 = new Fraction(standardDeviation(bComp,i-3,prom),prom);
+                    }
                 } else {
                     if(a8==0){
                         a8++;
-                        System.out.println("Prueba comparaciones Bubblesort. N="+N+", i="+i+", error ="+bstd2+" comp="+ mean(bComp,i-1));         }
+                        aux = mean(bComp,i-4);
+                        System.out.println("Prueba comparaciones Bubblesort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", i="+(i-3)+", error = "+(new Fraction(standardDeviation(bComp,i-4,aux),aux)).toString()+" comp= "+ aux);         }
                 }
 
+
             }
+
+            if(a1==0) System.out.println("Prueba tiempo Quicksort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", error ="+(new Fraction(standardDeviation(qTime,N,mean(qTime)),mean(qTime))).toString() +" time= "+ mean(qTime));
+            if(a2==0) System.out.println("Prueba comparaciones Quicksort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", error ="+(new Fraction(standardDeviation(qComp,N,mean(qComp)),mean(qComp))).toString() +" comp= "+ mean(qComp));
+            if(a3==0) System.out.println("Prueba tiempo Mergesort. n°elementos =" + Math.pow(2, pow)+ " N="+N+" error ="+(new Fraction(standardDeviation(mTime,N,mean(mTime)),mean(mTime))).toString() +" time= "+ mean(mTime));
+            if(a4==0) System.out.println("Prueba comparaciones Mergesort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", error ="+(new Fraction(standardDeviation(mComp,N,mean(mComp)),mean(mComp))).toString() +" comp= "+ mean(mComp));
+            if(a5==0) System.out.println("Prueba tiempo Insertsort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", error ="+(new Fraction(standardDeviation(iTime,N,mean(iTime)),mean(iTime))).toString() +" time= "+ mean(iTime));
+            if(a6==0) System.out.println("Prueba comparaciones Insertsort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", error ="+(new Fraction(standardDeviation(iComp,N,mean(iComp)),mean(iComp))).toString() +" comp= "+ mean(iComp));
+            if(a7==0) System.out.println("Prueba tiempo Bubblesort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", error ="+(new Fraction(standardDeviation(bTime,N,mean(bTime)),mean(bTime))).toString() +" time= "+ mean(bTime));
+            if(a8==0) System.out.println("Prueba comparaciones Bubblesort. n°elementos =" + Math.pow(2, pow)+ " N="+N+", error ="+(new Fraction(standardDeviation(bComp,N,mean(bComp)),mean(bComp))).toString() +" comp= "+ mean(bComp));
+
         }
 
-        if(a1==0) System.out.println("Prueba tiempo Quicksort. N="+N+", error ="+qstd1);
-        if(a2==0) System.out.println("Prueba comparaciones Quicksort. N="+N+", error ="+qstd2);
-        if(a3==0) System.out.println("Prueba tiempo Mergesort. N="+N+", error ="+mstd1);
-        if(a4==0) System.out.println("Prueba comparaciones Mergesort. N="+N+", error ="+mstd2);
-        if(a5==0) System.out.println("Prueba tiempo Insertsort. N="+N+", error ="+istd1);
-        if(a6==0) System.out.println("Prueba comparaciones Insertsort. N="+N+", error ="+istd2);
-        if(a7==0) System.out.println("Prueba tiempo Bubblesort. N="+N+", error ="+bstd1);
-        if(a8==0) System.out.println("Prueba comparaciones Bubblesort. N="+N+", error ="+bstd2);
+        
 
     }
 
-    private static double standardDeviation(int[] a, int n) {
 
 
-        double prom = mean(a,n);
-        double aux = 0;
-
-        for(int i = 0; i < n ; i++){
-            aux+= Math.pow((double)a[i]-prom,2);
-        }
-
-        return Math.sqrt(aux/n);
-
-    }
-
-    private static double standardDeviation(long[] a, int n){
+    private static long standardDeviation(long[] a, int n, long prom){
         if(n == 0) return 1;
-        int[]b = new int[a.length];
-        for(int i = 0;i<a.length;i++){
-            b[i] = (int)a[i];
-        }
-        return standardDeviation(b, n);
-    }
-
-    private static double mean(int[] a, int n){
-        double sum = 0;
-
+        long aux = 0L;
         for(int i = 0; i < n ; i++){
-            sum+= (double)a[i];
+            aux+= (long)Math.pow((double)(a[i]-prom),2);
         }
+        return (long)Math.sqrt((double)(aux/n));
+    }
 
-        return sum/n;
+
+
+    private static long mean(long[] a, int n){
+        if(n==1) return a[0];
+        long sum = 0L;
+
+        if((n%2) == 0){
+            for(int i = 0;i<n;i=i+2){
+                sum+=mean(Arrays.copyOfRange(a,i,i+1));
+            }
+            return 2*sum/n;
+        }
+        else{
+            for(int i = 0;i<n-1;i=i+2){
+                sum+=mean(Arrays.copyOfRange(a,i,i+1));
+            }
+            return ((2*sum/(n-1))+a[n-1])/2;
+
+        }
 
     }
 
-    private static double mean(long[] a, int n){
-        if(n==0) return 1;
-        int[]b = new int[a.length];
-        for(int i = 0;i<a.length;i++){
-            b[i] = (int)a[i];
+    private static long mean(long[]a){
+        long sum = 0L;
+        for(int i = 0 ; i <a.length;i++){
+            sum += a[i];
         }
-        return mean(b,n);
-
+        return sum/(a.length);
     }
 
 }
